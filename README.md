@@ -1,26 +1,28 @@
-# Distributed Key-Value Store
+# Distributed Key-Value Store with Dashboard
 
-A simple distributed key-value store implementation using gRPC for communication between nodes. This project demonstrates basic CRUD operations across multiple nodes with replication.
+A lightweight distributed key-value store implementation with a monitoring dashboard, built using FastAPI and modern web technologies.
 
 ## Features
 
-- Distributed key-value storage across multiple nodes
-- gRPC-based communication
-- Automatic replication of changes across nodes
-- Thread-safe operations
-- Simple CLI-based demo
+- Distributed key-value store with multiple nodes
+- Key-based sharding using consistent hashing
+- RESTful API for CRUD operations
+- Real-time monitoring dashboard
+- Node health monitoring
+- Key distribution visualization
 
 ## Prerequisites
 
 - Python 3.8+
-- pip (Python package manager)
+- Node.js 14+ (for development)
+- Modern web browser
 
 ## Installation
 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd distributed_kv_store
+cd distributed-kv-store
 ```
 
 2. Create a virtual environment and activate it:
@@ -34,75 +36,58 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Generate gRPC code:
+## Running the System
+
+1. Make the run script executable:
 ```bash
-python -m grpc_tools.protoc -I./proto --python_out=. --grpc_python_out=. ./proto/kvstore.proto
+chmod +x run_nodes.sh
 ```
 
-## Running the Demo
-
-1. Start the cluster (3 nodes):
+2. Start the nodes:
 ```bash
-python scripts/start_cluster.py
+./run_nodes.sh
 ```
 
-2. In a new terminal, run the CRUD demo:
-```bash
-python scripts/demo_crud.py
-```
+This will start three nodes on ports 8001, 8002, and 8003.
 
-The demo will:
-- Put some test data on node 1
-- Show that the data is replicated to all nodes
-- Delete a key and verify deletion across nodes
+## Accessing the Dashboard
 
-## Project Structure
+Open your web browser and navigate to:
+- Node 1: http://localhost:8001/dashboard
+- Node 2: http://localhost:8002/dashboard
+- Node 3: http://localhost:8003/dashboard
 
-```
-distributed_kv_store/
-│
-├── README.md
-├── requirements.txt
-├── config/
-│   └── nodes.json              # Node configuration
-│
-├── proto/
-│   └── kvstore.proto          # gRPC definitions
-│
-├── kvstore/
-│   ├── __init__.py
-│   ├── node.py                # Node implementation
-│   ├── store.py               # Key-value store logic
-│   └── utils.py               # Utilities
-│
-└── scripts/
-    ├── start_cluster.py       # Cluster bootstrap
-    └── demo_crud.py           # CRUD demo
-```
+## API Endpoints
 
-## Design Decisions
+### Key-Value Operations
 
-- Using gRPC for efficient RPC communication
-- Simple replication strategy: all nodes are peers
-- Thread-safe operations using RLock
-- Version tracking for values
-- Rich console output for demo visualization
+- `PUT /store/{key}` - Create or update a value
+- `GET /store/{key}` - Retrieve a value
+- `DELETE /store/{key}` - Delete a key-value pair
 
-## Limitations
+### Monitoring
 
-- No persistence (in-memory only)
-- No leader election
-- No sharding
-- Basic replication without conflict resolution
-- No authentication/authorization
+- `GET /status` - Get node status
+- `GET /keys` - Get all keys stored on the node
+- `GET /node-info` - Get node system information
 
-## Future Improvements
+## Architecture
 
-- Add persistence layer
-- Implement leader election
-- Add sharding support
-- Implement conflict resolution
-- Add authentication and authorization
-- Add monitoring and metrics
-- Implement proper error handling and recovery
-- Add load balancing 
+The system consists of the following components:
+
+1. **Node Manager**: Handles node discovery and request forwarding
+2. **Storage Engine**: In-memory key-value store
+3. **Status Monitor**: Tracks node health and metrics
+4. **Dashboard**: Real-time monitoring UI
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+MIT License 
