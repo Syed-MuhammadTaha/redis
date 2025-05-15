@@ -1,0 +1,15 @@
+.key-distribution-chart {
+  padding: 20px;
+}
+
+.key-distribution-chart h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.key-distribution-chart canvas {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+} 
