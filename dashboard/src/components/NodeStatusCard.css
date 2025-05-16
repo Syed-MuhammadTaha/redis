@@ -1,0 +1,59 @@
+.node-status-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.node-status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.node-status-card.selected {
+  border: 2px solid #4CAF50;
+}
+
+.node-status-card h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.healthy .status-dot {
+  background-color: #4CAF50;
+}
+
+.unhealthy .status-dot {
+  background-color: #f44336;
+}
+
+.status-details {
+  text-align: left;
+}
+
+.status-details p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.error-message {
+  color: #f44336;
+  margin-top: 10px;
+  font-size: 0.9em;
+} 
